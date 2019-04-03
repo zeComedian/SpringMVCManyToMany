@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,6 +29,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Project getProjectById(int id) {
+        Project project = projectRepository.findById(id).get();
+        return project;
+    }
+
+    @Override
     public boolean addProject(Project project) {
         try {
             projectRepository.save(project);
@@ -38,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(int id) {
         projectRepository.deleteById(id);
     }
 

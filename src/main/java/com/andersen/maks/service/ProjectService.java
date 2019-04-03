@@ -7,8 +7,10 @@ import java.util.List;
 public interface ProjectService {
 
     boolean addProject(Project project);
-    void delete(long id);
+    void delete(int id);
     Project editProject(Project project);
     List<Project> getAll();
+    Project getProjectById(int id);
+
 
 }

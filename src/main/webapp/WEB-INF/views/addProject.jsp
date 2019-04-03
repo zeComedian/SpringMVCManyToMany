@@ -28,8 +28,7 @@
             <td><form:input path="company"/></td>
         </tr>
         <tr>
-            <td><input name="developerId" type="text"> Developer ID</td>
-            <td></td>
+                <td><input name="firstName" type="text"></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

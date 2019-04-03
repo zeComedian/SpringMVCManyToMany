@@ -75,10 +75,10 @@ ${message}
             <td>${project.company}</td>
             <%--<td>${project.developer}</td>--%>
             <td>
-                <a href="${pageContext.request.contextPath}/editDeveloper/${project.id}">Edit</a>
+                <a href="${pageContext.request.contextPath}/editProject/${project.id}">Edit</a>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteDeveloper/${project.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/deleteProject/${project.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

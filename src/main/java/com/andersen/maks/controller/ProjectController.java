@@ -2,6 +2,7 @@ package com.andersen.maks.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,14 +44,15 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
-    public ModelAndView saveNewProject(@ModelAttribute Project project, @RequestParam int developerId, BindingResult result){
+    public ModelAndView saveNewProject(@ModelAttribute Project project, @RequestParam String firstName, BindingResult result){
         ModelAndView mv = new ModelAndView("redirect:/allDevelopers");
 
         if (result.hasErrors()){
             return new ModelAndView("error");
         }
-        project.setDeveloper(developerService.getDeveloperById(developerId));
+        project.setDevelopers(developerService.getByName(firstName));
         boolean isAdded = projectService.addProject(project);
+        System.out.println(project.toString());
         if (isAdded){
             mv.addObject("message", "New Project added");
         }else {
@@ -59,6 +61,35 @@ public class ProjectController {
         return mv;
     }
 
+    @RequestMapping(value = "/editProject/{id}", method = RequestMethod.GET)
+    public ModelAndView displayEditProjectForm(@PathVariable Integer id) {
+        ModelAndView mv = new ModelAndView("/editProject");
+        Project project = projectService.getProjectById(id);
+        mv.addObject("headerMessage", "Edit Project Details");
+        mv.addObject("project", project);
+        return mv;
+    }
+
+    @RequestMapping(value = "/editProject/{id}", method = RequestMethod.POST)
+    public ModelAndView saveEditedProject(@ModelAttribute Project project, BindingResult result) {
+        ModelAndView mv = new ModelAndView("redirect:/allDevelopers");
+
+        if (result.hasErrors()) {
+            System.out.println(result.toString());
+            return new ModelAndView("error");
+        }
+        boolean isSaved = projectService.addProject(project);
+        if (!isSaved) {
+            return new ModelAndView("error");
+        }
+        return mv;
+    }
 
 
+    @RequestMapping(value = "/deleteProject/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteProjectById(@PathVariable Integer id) {
+        projectService.delete(id);
+        ModelAndView mv = new ModelAndView("redirect:/allDevelopers");
+        return mv;
+    }
 }

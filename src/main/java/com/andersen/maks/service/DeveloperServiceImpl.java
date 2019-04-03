@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -20,10 +21,17 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public Set<Developer> getByName(String name) {
+        return repository.findByFirstName(name);
+    }
+
+    @Override
     public Developer getDeveloperById(int id) {
         Developer developer = repository.findById(id).get();
         return developer;
     }
+
+
 
     @Autowired
     public DeveloperServiceImpl(DeveloperRepository repository){
